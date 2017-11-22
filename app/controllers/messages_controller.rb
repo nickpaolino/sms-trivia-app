@@ -3,7 +3,7 @@ class MessagesController < ApplicationController
   def reply
     @params = params
     message_body = params["Body"]
-    # from_number = params["From"]
+    from_number = params["From"]
     boot_twilio
     sms = @client.messages.create(
       from: Rails.application.secrets.twilio_number,
@@ -17,6 +17,9 @@ class MessagesController < ApplicationController
   def boot_twilio
     account_sid = Rails.application.secrets.twilio_sid
     auth_token = Rails.application.secrets.twilio_token
-    @client = Twilio::REST::Client.new account_sid, auth_token
+    twilio = Twilio::REST::Client.new(
+      client.twilio_account_sid,
+      client.twilio_auth_token
+    )
   end
 end
