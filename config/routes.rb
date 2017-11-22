@@ -5,4 +5,6 @@ Rails.application.routes.draw do
       post 'reply'
     end
   end
+
+  root to: 'messages#main'
 end
