@@ -1,25 +1,15 @@
 class MessagesController < ApplicationController
 
   def reply
-    @params = params
+    account_sid = "AC886c0ecb9e6927e801c5bda667258431"
+    auth_token = "70ffa9a31541fb3b612eff826e94a89f"
+    @client = Twilio::REST::Client.new account_sid, auth_token
     message_body = params["Body"]
     from_number = params["From"]
-    boot_twilio
     sms = @client.messages.create(
-      from: Rails.application.secrets.twilio_number,
-      to: from_number,
+      from: "+16467913080",
+      to: "+14015802703",
       body: "Hello there, thanks for texting me."
-    )
-  end
-
-  private
-
-  def boot_twilio
-    account_sid = Rails.application.secrets.twilio_sid
-    auth_token = Rails.application.secrets.twilio_token
-    twilio = Twilio::REST::Client.new(
-      client.twilio_account_sid,
-      client.twilio_auth_token
     )
   end
 end
