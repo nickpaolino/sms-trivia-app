@@ -3,12 +3,12 @@ class MessagesController < ApplicationController
   def reply
     @params = params
     message_body = params["Body"]
-    from_number = params["From"]
+    # from_number = params["From"]
     boot_twilio
     sms = @client.messages.create(
       from: Rails.application.secrets.twilio_number,
       to: from_number,
-      body: "Hello there, thanks for texting me. Your number is #{from_number}."
+      body: "Hello there, thanks for texting me."
     )
   end
 
