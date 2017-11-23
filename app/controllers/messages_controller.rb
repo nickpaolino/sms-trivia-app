@@ -3,7 +3,7 @@ class MessagesController < ApplicationController
   def reply
     account_sid = ""
     auth_token = ""
-    @client = Twilio::REST::Client.new account_sid, auth_token
+    @client = Twilio::REST::Client.new ENV['ACCOUNT_SID'], ENV['AUTH_TOKEN']
     message_body = params["Body"]
     from_number = params["From"]
     sms = @client.messages.create(
