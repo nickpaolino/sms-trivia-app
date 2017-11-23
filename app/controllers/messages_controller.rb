@@ -5,7 +5,8 @@ class MessagesController < ApplicationController
     message_body = params["Body"]
     from_number = params["From"]
 
-    Message.create(content: message_body, number: from_number)
+    phone_number = Phone.create_or_find_by(number: from_number)
+    Message.create(content: message_body, phone: phone_number)
 
     sms = @client.messages.create(
       from: "+16467913080",
