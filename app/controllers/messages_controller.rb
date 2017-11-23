@@ -5,7 +5,7 @@ class MessagesController < ApplicationController
     message_body = params["Body"]
     from_number = params["From"]
 
-    create_record(message_body, from_number)
+    Message.create(content: message_body, number: from_number)
 
     sms = @client.messages.create(
       from: "+16467913080",
@@ -18,11 +18,5 @@ class MessagesController < ApplicationController
     @messages = Message.all
 
     render json: @messages
-  end
-
-  private
-
-  def create_record(message_body, from_number)
-    Message.create(content: message_body, number: from_number)
   end
 end
