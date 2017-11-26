@@ -50,9 +50,11 @@ class MessagesController < ApplicationController
       message_body = current_question
     end
 
+    phone_number = decode(@message.phone_number)
+
     sms = @client.messages.create(
       from: "+16467913080",
-      to: @message.phone_number,
+      to: phone_number,
       body: message_body
     )
   end
