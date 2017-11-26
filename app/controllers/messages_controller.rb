@@ -23,12 +23,35 @@ class MessagesController < ApplicationController
 
     current_question = questions[@message.number_of_messages]
 
-    text_body = "You're on round #{@message.number_of_messages}"
+    if number_of_messages == 2
+      if @message.content == "6"
+        response = "Correct!"
+      else
+        response = "Nope!"
+      end
+      message_body = "#{response} #{current_question}"
+    elsif number_of_messages == 3
+      if @message.content.downcase == "nymeria"
+        response = "Nicely done!"
+      else
+        response = "Sorry but unfortunately that's not it"
+      end
+      message_body = "#{response} #{current_question}"
+    elsif number_of_messages == 4
+      if @message.content.downcase.include?("revelize") || @message.content.downcase.include?("cityyelp") || @message.content.downcase.include?("legend of es")
+        response = "You got it!"
+      else
+        response = "Incorrect!"
+      end
+      message_body = "#{response} #{current_question}"
+    end
+
+
 
     sms = @client.messages.create(
       from: "+16467913080",
       to: @message.phone_number,
-      body: current_question
+      body: message_body
     )
   end
 
