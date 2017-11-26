@@ -14,12 +14,21 @@ class MessagesController < ApplicationController
 
     @message = Message.find(params[:id])
 
+    questions =
+    [ "",
+      "What is the lowest amount of mealpals you can order for a month?",
+      "What is the name of Arya's direwolf?",
+      "What is the name of me and Nick's module one project?"
+    ]
+
+    current_question = questions[@message.number_of_messages]
+
     text_body = "You're on round #{@message.number_of_messages}"
 
     sms = @client.messages.create(
       from: "+16467913080",
       to: @message.phone_number,
-      body: "Hello #{@message.phone_number}. #{text_body}"
+      body: current_question
     )
   end
 
