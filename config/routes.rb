@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resource :messages do
     collection do
       post 'reply'
-      post 'mail'
+      post '/mail/:id', to: 'messages#mail', as: 'mail'
     end
   end
 

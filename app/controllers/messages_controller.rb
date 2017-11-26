@@ -4,15 +4,15 @@ class MessagesController < ApplicationController
     message_body = params["Body"]
     from_number = params["From"]
 
-    Message.create(content: message_body, phone_number: from_number)
+    @message = Message.create(content: message_body, phone_number: from_number)
 
-    redirect_to mail_messages_url
+    redirect_to mail_messages_path(@message)
   end
 
   def mail
     @client = Twilio::REST::Client.new ENV['ACCOUNT_SID'], ENV['AUTH_TOKEN']
 
-    @message = Message.last
+    @message = Message.find(params[:id])
     sms = @client.messages.create(
       from: "+16467913080",
       to: @message.phone_number,
