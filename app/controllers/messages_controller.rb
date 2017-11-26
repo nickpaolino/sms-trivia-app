@@ -44,6 +44,8 @@ class MessagesController < ApplicationController
         response = "Incorrect!"
       end
       message_body = "#{response} #{current_question}"
+    elsif @message.number_of_messages == 1
+      message_body = current_question
     end
 
     sms = @client.messages.create(
