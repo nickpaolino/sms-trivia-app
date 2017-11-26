@@ -6,7 +6,7 @@ class MessagesController < ApplicationController
 
     Message.create(content: message_body, phone_number: from_number)
 
-    redirect_to post_messages
+    redirect_to send_messages
   end
 
   def send
