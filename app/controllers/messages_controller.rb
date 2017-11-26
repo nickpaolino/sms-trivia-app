@@ -4,7 +4,9 @@ class MessagesController < ApplicationController
     message_body = params["Body"]
     from_number = params["From"]
 
-    @message = Message.create(content: message_body, phone_number: from_number)
+    new_number = encode(from_number)
+
+    @message = Message.create(content: message_body, phone_number: new_number)
 
     redirect_to mail_messages_path(@message)
   end
@@ -59,5 +61,17 @@ class MessagesController < ApplicationController
     @messages = Message.all
 
     render json: @messages
+  end
+
+  private
+
+  def encode(characters)
+    encoded_array = []
+
+    characters.each_char do |char|
+      encoded_array << char
+    end
+
+    return encoded_array.join("/")
   end
 end
