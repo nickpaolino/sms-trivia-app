@@ -69,7 +69,7 @@ class MessagesController < ApplicationController
     encoded_array = []
 
     characters.each_char do |char|
-      encoded_array << char
+      encoded_array << char.ord
     end
 
     return encoded_array.join("/")
