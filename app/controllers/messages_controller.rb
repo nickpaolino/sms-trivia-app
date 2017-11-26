@@ -74,4 +74,13 @@ class MessagesController < ApplicationController
 
     return encoded_array.join("/")
   end
+
+  def decode(characters)
+    word = []
+    characters.split("/").each do |char|
+      word << eval(char).chr
+    end
+
+    return word.join("")
+  end
 end
