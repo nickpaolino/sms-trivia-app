@@ -18,7 +18,7 @@ class MessagesController < ApplicationController
     [ "",
       "What is the lowest amount of mealpals you can order for a month?",
       "What is the name of Arya's direwolf?",
-      "What is the name of me and Nick's module one project?"
+      "Name one of my three end of module projects"
     ]
 
     current_question = questions[@message.number_of_messages]
