@@ -25,7 +25,7 @@ class MessagesController < ApplicationController
 
     current_question = questions[@message.number_of_messages]
     if @message.number_of_messages == 1
-      @message.update(correct_number: 0)
+      @message.update(nickname: @message.content)
     end
 
     if @message.number_of_messages == 2
