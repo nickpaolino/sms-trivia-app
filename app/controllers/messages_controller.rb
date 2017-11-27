@@ -6,7 +6,12 @@ class MessagesController < ApplicationController
 
     new_number = encode(from_number)
 
-    @message = Message.create(content: message_body, phone_number: new_number)
+    if !Message.find_by(phone_number: new_number)
+      @message = Message.create(content: message_body, phone_number: new_number, nickname: message_body)
+    else
+      @message = Message.create(content: message_body, phone_number: new_number)
+    end
+
 
     redirect_to mail_messages_path(@message)
   end
@@ -48,8 +53,6 @@ class MessagesController < ApplicationController
       message_body = "#{response} #{current_question}"
     elsif @message.number_of_messages == 1
       message_body = current_question
-    else
-      @message.nickname = @message.content
     end
 
     phone_number = decode(@message.phone_number)
