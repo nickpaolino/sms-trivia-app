@@ -49,7 +49,7 @@ class MessagesController < ApplicationController
     elsif @message.number_of_messages == 1
       message_body = current_question
     else
-      @message.update(nickname: @message.content)
+      @message.nickname = @message.content
     end
 
     phone_number = decode(@message.phone_number)
