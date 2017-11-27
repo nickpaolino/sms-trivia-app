@@ -25,7 +25,7 @@ class MessagesController < ApplicationController
 
     current_question = questions[@message.number_of_messages]
     if @message.number_of_messages == 1
-      @message.correct_number = 0
+      @message.update(correct_number: 0)
     end
 
     if @message.number_of_messages == 2
@@ -53,7 +53,8 @@ class MessagesController < ApplicationController
         @message.update(correct_number: previous += 1)
         new_number_correct = sprintf "%.2f", @message.correct_number
         new_number_of_messages = sprintf "%.2f", @message.number_of_messages
-        @message.percent_correct = (new_number_correct / new_number_of_messages).to_s
+        percent = (new_number_correct / new_number_of_messages).to_s
+        @message.update(percent_correct: percent)
       else
         response = "Incorrect!"
       end
