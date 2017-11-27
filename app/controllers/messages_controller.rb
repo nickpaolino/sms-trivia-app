@@ -24,10 +24,14 @@ class MessagesController < ApplicationController
     ]
 
     current_question = questions[@message.number_of_messages]
+    if @message.number_of_messages = 1
+      @message.correct_number = 0
+    end
 
     if @message.number_of_messages == 2
       if @message.content == "6"
         response = "Correct!"
+        @message.correct_number += 1
       else
         response = "Nope!"
       end
@@ -35,6 +39,7 @@ class MessagesController < ApplicationController
     elsif @message.number_of_messages == 3
       if @message.content.downcase == "nymeria"
         response = "Nicely done!"
+        @message.correct_number += 1
       else
         response = "Sorry but unfortunately that's not it"
       end
@@ -42,6 +47,10 @@ class MessagesController < ApplicationController
     elsif @message.number_of_messages == 4
       if @message.content.downcase.include?("revelize") || @message.content.downcase.include?("cityyelp") || @message.content.downcase.include?("legend of es")
         response = "You got it!"
+        @message.correct_number += 1
+        new_number_correct = sprintf "%.2f", @message.correct_number
+        new_number_of_messages = sprintf "%.2f", @message.number_of_messages
+        @message.percent_correct = (new_number_correct / new_number_of_messages).to_s
       else
         response = "Incorrect!"
       end
