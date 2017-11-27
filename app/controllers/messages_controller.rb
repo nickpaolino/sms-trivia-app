@@ -24,7 +24,7 @@ class MessagesController < ApplicationController
     ]
 
     current_question = questions[@message.number_of_messages]
-    if @message.number_of_messages = 1
+    if @message.number_of_messages == 1
       @message.correct_number = 0
     end
 
