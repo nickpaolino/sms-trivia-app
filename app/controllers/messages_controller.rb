@@ -24,9 +24,6 @@ class MessagesController < ApplicationController
     ]
 
     current_question = questions[@message.number_of_messages]
-    if @message.number_of_messages == 1
-      @message.update(nickname: @message.content)
-    end
 
     if @message.number_of_messages == 2
       if @message.content == "6"
@@ -51,6 +48,8 @@ class MessagesController < ApplicationController
       message_body = "#{response} #{current_question}"
     elsif @message.number_of_messages == 1
       message_body = current_question
+    else
+      @message.update(nickname: @message.content)
     end
 
     phone_number = decode(@message.phone_number)
