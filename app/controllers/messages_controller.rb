@@ -31,14 +31,14 @@ class MessagesController < ApplicationController
     current_question = questions[@message.number_of_messages]
 
     if @message.number_of_messages == 2
-      if @message.content == "6"
+      if @message.content.downcase == "washington"
         response = "Correct!"
       else
         response = "Nope!"
       end
       message_body = "#{response} #{current_question}"
     elsif @message.number_of_messages == 3
-      if @message.content.downcase == "nymeria"
+      if @message.content.downcase == "RI"
         response = "Nicely done!"
       else
         response = "Sorry but unfortunately that's not it"
