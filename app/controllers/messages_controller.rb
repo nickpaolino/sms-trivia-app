@@ -23,8 +23,8 @@ class MessagesController < ApplicationController
 
     questions =
     [ "",
-      "What is the lowest amount of mealpals you can order for a month?",
-      "What is the name of Arya's direwolf?",
+      "My Belly's Playlist is on ________ St.",
+      "Which state did Alex and Es go to college in? (Abbreviation)",
       "Name one of my three end of module projects"
     ]
 
