@@ -38,7 +38,7 @@ class MessagesController < ApplicationController
       end
       message_body = "#{response} #{current_question}"
     elsif @message.number_of_messages == 3
-      if @message.content.downcase == "RI"
+      if @message.content.downcase == "ri"
         response = "Nicely done!"
       else
         response = "Sorry but unfortunately that's not it"
