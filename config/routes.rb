@@ -7,5 +7,6 @@ Rails.application.routes.draw do
     end
   end
 
-  root to: 'messages#main'
+  get '/call', to: 'messages#call'
+  root to: 'messages#view_xml'
 end
