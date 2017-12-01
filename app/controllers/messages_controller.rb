@@ -6,22 +6,37 @@ class MessagesController < ApplicationController
 
     new_number = encode(from_number)
 
+    if message_body.split(" ").include?("set_message")
+      new_message = message_body.split("set_message")[-1][1..-1].split(" ").join("_")
+      redirect_to view_xml(new_message)
+    elsif message_body.split(" ").include?("call")
+      redirect_to call_path
+    end
+
     if !Message.find_by(phone_number: new_number)
       @message = Message.create(content: message_body, phone_number: new_number, nickname: message_body)
     else
       @message = Message.create(content: message_body, phone_number: new_number)
     end
 
-
     redirect_to mail_messages_path(@message)
   end
 
   def view_xml
-    data = {:Play=> 'https://nickpaolino.github.io/xml/theme.mp3'}
+    message = params[:message].split("_").join(" ")
+    data = {:Say => message}
     render :xml => data.to_xml(root: 'Response')
   end
 
+  def call
+    @client = Twilio::REST::Client.new ENV['ACCOUNT_SID'], ENV['AUTH_TOKEN']
 
+    @client.calls.create(
+      to: ENV['PHONE'],
+      from: ENV['TWILIO_PHONE'],
+      url: "https://sms-trivia-app.herokuapp.com/hello_there/xml"
+    )
+  end
 
   def mail
     @client = Twilio::REST::Client.new ENV['ACCOUNT_SID'], ENV['AUTH_TOKEN']
