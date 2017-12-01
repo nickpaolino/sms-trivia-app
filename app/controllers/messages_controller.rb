@@ -17,9 +17,11 @@ class MessagesController < ApplicationController
   end
 
   def view_xml
-    data = {:Play=> 'http://demo.twilio.com/docs/classic.mp3'}
+    data = {:Play=> 'https://nickpaolino.github.io/xml/theme.mp3'}
     render :xml => data.to_xml(root: 'Response')
   end
+
+
 
   def mail
     @client = Twilio::REST::Client.new ENV['ACCOUNT_SID'], ENV['AUTH_TOKEN']
