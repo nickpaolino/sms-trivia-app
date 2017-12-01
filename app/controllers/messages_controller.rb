@@ -6,18 +6,8 @@ class MessagesController < ApplicationController
 
     new_number = encode(from_number)
 
-    if message_body.split(" ").include?("set_message")
-      new_message = message_body.split("set_message")[-1][1..-1].split(" ").join("_")
-      redirect_to call_url(new_message)
-    end
-    #
-    # if !Message.find_by(phone_number: new_number)
-    #   @message = Message.create(content: message_body, phone_number: new_number, nickname: message_body)
-    # else
-    #   @message = Message.create(content: message_body, phone_number: new_number)
-    # end
-    #
-    # redirect_to mail_messages_path(@message)
+    new_message = message_body.split("set_message")[-1][1..-1].split(" ").join("_")
+    redirect_to call_url(new_message)
   end
 
   def view_xml
