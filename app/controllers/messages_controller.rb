@@ -8,7 +8,7 @@ class MessagesController < ApplicationController
 
     if message_body.split(" ").include?("set_message")
       new_message = message_body.split("set_message")[-1][1..-1].split(" ").join("_")
-      redirect_to call_path(new_message)
+      redirect_to call_url(new_message)
     end
     #
     # if !Message.find_by(phone_number: new_number)
