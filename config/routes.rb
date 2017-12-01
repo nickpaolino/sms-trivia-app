@@ -6,7 +6,7 @@ Rails.application.routes.draw do
       post '/mail/:id', to: 'messages#mail', as: 'mail'
     end
   end
-  get '/:message/xml', to: 'messages#view_xml', as: 'xml'
-  get '/call', to: 'messages#call'
+  post '/:message/xml', to: 'messages#view_xml', as: 'xml'
+  get '/:message/call', to: 'messages#call'
   root to: 'messages#main'
 end

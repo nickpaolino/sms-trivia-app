@@ -8,9 +8,7 @@ class MessagesController < ApplicationController
 
     if message_body.split(" ").include?("set_message")
       new_message = message_body.split("set_message")[-1][1..-1].split(" ").join("_")
-      redirect_to view_xml(new_message)
-    elsif message_body.split(" ").include?("call")
-      redirect_to call_path
+      redirect_to call_path(new_message)
     end
 
     if !Message.find_by(phone_number: new_number)
@@ -31,10 +29,12 @@ class MessagesController < ApplicationController
   def call
     @client = Twilio::REST::Client.new ENV['ACCOUNT_SID'], ENV['AUTH_TOKEN']
 
+    message = params[:message]
+
     @client.calls.create(
       to: ENV['PHONE'],
       from: ENV['TWILIO_PHONE'],
-      url: "https://sms-trivia-app.herokuapp.com/hello_there/xml"
+      url: "https://sms-trivia-app.herokuapp.com/#{message}/xml"
     )
   end
 
