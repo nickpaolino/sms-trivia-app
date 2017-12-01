@@ -16,16 +16,6 @@ class MessagesController < ApplicationController
     redirect_to mail_messages_path(@message)
   end
 
-  def call
-    @client = Twilio::REST::Client.new "AC886c0ecb9e6927e801c5bda667258431", "70ffa9a31541fb3b612eff826e94a89f"
-
-    @client.calls.create(
-      to: "+14015802703",
-      from: "+16467913080",
-      url: "http://192.168.0.2:3000/"
-    )
-  end
-
   def view_xml
     data = {:Play=> 'http://demo.twilio.com/docs/classic.mp3'}
     render :xml => data.to_xml(root: 'Response')
