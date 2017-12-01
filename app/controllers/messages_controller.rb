@@ -6,7 +6,9 @@ class MessagesController < ApplicationController
 
     new_number = encode(from_number)
 
-    new_message = message_body.split("set_message")[-1][1..-1].split(" ").join("_")
+    phone_number = message_body.split("-")[-1][1..-1]
+    # new_message = message_body.split("set_message")[-1][1..-1].split(" ").join("_")
+    new_message = message_body.split(" ").join("_")
     redirect_to call_url(new_message)
   end
 
@@ -19,10 +21,11 @@ class MessagesController < ApplicationController
   def call
     @client = Twilio::REST::Client.new ENV['ACCOUNT_SID'], ENV['AUTH_TOKEN']
 
-    message = params[:message]
+    message = params[:message].split("-")[-1]
+    phone_number = params[:message].split("-")[0]
 
     @client.calls.create(
-      to: ENV['PHONE'],
+      to: phone_number,
       from: ENV['TWILIO_PHONE'],
       url: "https://sms-trivia-app.herokuapp.com/#{message}/xml"
     )
