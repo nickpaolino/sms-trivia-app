@@ -6,7 +6,7 @@ class MessagesController < ApplicationController
 
     new_number = encode(from_number)
 
-    if message_body.includes?("santa")
+    if message_body.include?("frosty")
       @client = Twilio::REST::Client.new ENV['ACCOUNT_SID'], ENV['AUTH_TOKEN']
       sms = @client.messages.create(
         from: "+16467913080",
