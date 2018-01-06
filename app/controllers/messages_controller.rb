@@ -4,21 +4,14 @@ class MessagesController < ApplicationController
     message_body = params["Body"]
     from_number = params["From"]
 
-    new_number = encode(from_number)
+    # new_number = encode(from_number)
 
-    if from_number == ("+14015802703")
-      @client = Twilio::REST::Client.new ENV['ACCOUNT_SID'], ENV['AUTH_TOKEN']
-      sms = @client.messages.create(
-        from: "+16467913080",
-        to: from_number,
-        body: "This is Jason Brown robocalling you. I have serious self-esteem problems about my micropenis and am calling you via a robot to compensate for it. I apologize if this comes as a surprise to you."
-      )
-    else
-      phone_number = message_body.split("-")[-1][1..-1]
-      # new_message = message_body.split("set_message")[-1][1..-1].split(" ").join("_")
-      new_message = message_body.split(" ").join("_")
-      redirect_to call_url(new_message)
-    end
+    @client = Twilio::REST::Client.new ENV['ACCOUNT_SID'], ENV['AUTH_TOKEN']
+    sms = @client.messages.create(
+      from: "+14015802703",
+      to: from_number,
+      body: "Hello there Nick."
+    )
   end
 
   def view_xml
