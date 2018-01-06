@@ -6,12 +6,12 @@ class MessagesController < ApplicationController
 
     new_number = encode(from_number)
 
-    if message_body.include?("frosty")
+    if from_number == ("+14015802703")
       @client = Twilio::REST::Client.new ENV['ACCOUNT_SID'], ENV['AUTH_TOKEN']
       sms = @client.messages.create(
         from: "+16467913080",
         to: from_number,
-        body: "Hey there Becky. We've been expecting you. Go to this link: https://vimeo.com/248358482  - Password is hellobecky"
+        body: "This is Jason Brown robocalling you. I have serious self-esteem problems about my micropenis and am calling you via a robot to compensate for it. I apologize if this comes as a surprise to you."
       )
     else
       phone_number = message_body.split("-")[-1][1..-1]
