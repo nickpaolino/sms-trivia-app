@@ -6,4 +6,15 @@ class Message < ApplicationRecord
 
     message_count
   end
+
+  def resolve_response
+    message = self.determine_sender
+    message
+  end
+
+  def determine_sender
+    if self.phone_number == "+14015802703"
+      "Hello Nick"
+    end
+  end
 end

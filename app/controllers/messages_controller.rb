@@ -6,11 +6,15 @@ class MessagesController < ApplicationController
 
     # new_number = encode(from_number)
 
+    message = Message.create(content: message_body, phone_number: from_number)
+
+    resolved_message = message.resolve_response
+
     @client = Twilio::REST::Client.new ENV['ACCOUNT_SID'], ENV['AUTH_TOKEN']
     sms = @client.messages.create(
-      from: "+14015802703",
-      to: ENV['TWILIO_PHONE'],
-      body: "Hello there Nick."
+      from: ENV['TWILIO_PHONE'],
+      to: from_number,
+      body: resolved_message
     )
   end
 
@@ -30,54 +34,6 @@ class MessagesController < ApplicationController
       to: phone_number,
       from: ENV['TWILIO_PHONE'],
       url: "https://sms-trivia-app.herokuapp.com/#{message}/xml"
-    )
-  end
-
-  def mail
-    @client = Twilio::REST::Client.new ENV['ACCOUNT_SID'], ENV['AUTH_TOKEN']
-
-    @message = Message.find(params[:id])
-
-    questions =
-    [ "",
-      "My Belly's Playlist is on ________ St.",
-      "Which state did Alex and Es go to college in? (Abbreviation)",
-      "Name one of my three end of module projects"
-    ]
-
-    current_question = questions[@message.number_of_messages]
-
-    if @message.number_of_messages == 2
-      if @message.content.downcase == "washington"
-        response = "Correct!"
-      else
-        response = "Nope!"
-      end
-      message_body = "#{response} #{current_question}"
-    elsif @message.number_of_messages == 3
-      if @message.content.downcase == "ri"
-        response = "Nicely done!"
-      else
-        response = "Sorry but unfortunately that's not it"
-      end
-      message_body = "#{response} #{current_question}"
-    elsif @message.number_of_messages == 4
-      if @message.content.downcase.include?("revelize") || @message.content.downcase.include?("cityyelp") || @message.content.downcase.include?("legend of es")
-        response = "You got it!"
-      else
-        response = "Incorrect!"
-      end
-      message_body = "#{response} #{current_question}"
-    elsif @message.number_of_messages == 1
-      message_body = current_question
-    end
-
-    phone_number = decode(@message.phone_number)
-
-    sms = @client.messages.create(
-      from: "+16467913080",
-      to: phone_number,
-      body: message_body
     )
   end
 
