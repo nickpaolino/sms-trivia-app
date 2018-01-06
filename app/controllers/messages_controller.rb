@@ -9,7 +9,7 @@ class MessagesController < ApplicationController
     @client = Twilio::REST::Client.new ENV['ACCOUNT_SID'], ENV['AUTH_TOKEN']
     sms = @client.messages.create(
       from: "+14015802703",
-      to: "+14015802703",
+      to: ENV['TWILIO_PHONE'],
       body: "Hello there Nick."
     )
   end
