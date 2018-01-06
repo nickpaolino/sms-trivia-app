@@ -12,9 +12,13 @@ class Message < ApplicationRecord
     message
   end
 
+  # def learn_sender
+  #   "Hey there, what's your name?"
+  # end
+
   def determine_sender
-    if self.phone_number == "+14015802703"
-      "Hello Nick"
+    if self.user.name
+      "Hello #{self.user.name}"
     end
   end
 end
