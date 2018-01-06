@@ -1,4 +1,5 @@
 class Message < ApplicationRecord
+  belongs_to :user
 
   def number_of_messages
     number = self.phone_number
