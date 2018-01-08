@@ -13,13 +13,9 @@ class Message < ApplicationRecord
     message
   end
 
-  # def learn_sender
-  #   "Hey there, what's your name?"
-  # end
-
   def determine_sender
-    if self.user.name
-      "Hello #{self.user.name}"
+    if self.user.name === "Nick"
+      self.permissions = true
     end
   end
 end
