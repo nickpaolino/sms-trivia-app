@@ -16,7 +16,7 @@ class MessagesController < ApplicationController
     sms = @client.messages.create(
       from: ENV['TWILIO_PHONE'],
       to: from_number,
-      body: resolved_message
+      body: "Test"
     )
   end
 
