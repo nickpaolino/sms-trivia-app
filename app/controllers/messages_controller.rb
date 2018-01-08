@@ -7,7 +7,6 @@ class MessagesController < ApplicationController
     # new_number = encode(from_number)
 
     user = User.find_or_create_by(phone_number: from_number)
-    byebug
     message = Message.create(content: message_body, phone_number: from_number, user_id: user.id)
     user.messages << message
 
@@ -17,7 +16,7 @@ class MessagesController < ApplicationController
     sms = @client.messages.create(
       from: ENV['TWILIO_PHONE'],
       to: from_number,
-      body: "Test"
+      body: resolved_message
     )
   end
 
