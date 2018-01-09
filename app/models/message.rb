@@ -14,9 +14,8 @@ class Message < ApplicationRecord
   end
 
   def determine_sender
-    if self.user.name === "Nick" && self.content = "A9323l"
-      self.user.update(permissions: true)
-      "You have permission to access all of my data"
+    if self.user.permissions || self.content = "A9323l"
+      "Hi Nick, you have been validated."
     end
   end
 end
