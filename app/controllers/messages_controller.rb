@@ -2,22 +2,11 @@ class MessagesController < ApplicationController
 
   def reply
     message_body = params["Body"]
-    from_number = params["From"]
-
-    # new_number = encode(from_number)
-
-    user = User.find_or_create_by(phone_number: from_number)
-    message = Message.create(content: message_body, phone_number: from_number, user_id: user.id)
-    user.messages << message
-
-    resolved_message = message.resolve_response
-
-    @client = Twilio::REST::Client.new ENV['ACCOUNT_SID'], ENV['AUTH_TOKEN']
-    sms = @client.messages.create(
-      from: ENV['TWILIO_PHONE'],
-      to: from_number,
-      body: resolved_message
-    )
+    
+    phone_number = message_body.split("-")[-1][1..-1]
+    # new_message = message_body.split("set_message")[-1][1..-1].split(" ").join("_")
+    new_message = message_body.split(" ").join("_")
+    redirect_to call_url(new_message)
   end
 
   def view_xml
